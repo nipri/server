@@ -17,7 +17,8 @@ void main (void) {
 	    struct sockaddr_in server , client;
 	    char client_message[2000], server_message[64];
 
-	    strcpy(server_message, "You are most welcome!\r\n");
+//	    strcpy(server_message, "You are most welcome!\r\n");
+	    strcpy(server_message, "a");
 
 	    //Create socket
 	    socket_desc = socket(AF_INET , SOCK_STREAM , 0);
