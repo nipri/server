@@ -15,10 +15,13 @@
 void main (void) {
 	    int socket_desc , client_sock , c , read_size;
 	    struct sockaddr_in server , client;
-	    char client_message[2000], server_message[64];
+	    char client_message[2000];
+	    int server_message[64];
 
 //	    strcpy(server_message, "You are most welcome!\r\n");
-	    strcpy(server_message, "a");
+//	    strcpy(server_message, "abcde");
+	    server_message[0] = 0x08;
+	    server_message[1] = 0x15;
 
 	    //Create socket
 	    socket_desc = socket(AF_INET , SOCK_STREAM , 0);
@@ -58,23 +61,23 @@ void main (void) {
 	    }
 	    puts("Connection accepted");
 
-	    //Receive a message from client
-	    while( (read_size = recv(client_sock , client_message , 2000 , 0)) > 0 )
-	    {
-	    	printf("%s\r\n", client_message);
-	        //Send the message back to client
-	        write(client_sock, server_message , strlen(server_message));
-	    }
+	    	//Receive a message from client
+	    	while( (read_size = recv(client_sock , client_message , 2000 , 0)) > 0 )
+	    	{
+	    		printf("Client Sent: %s\r\n", client_message);
+	    		//Send the message back to client
+	    		write(client_sock, server_message , strlen(server_message));
+	    	}
 
-	    if(read_size == 0)
-	    {
-	        puts("Client disconnected");
-	        fflush(stdout);
-	    }
-	    else if(read_size == -1)
-	    {
-	        perror("recv failed");
-	    }
+	    	if(read_size == 0)
+	    	{
+	    		puts("Client disconnected");
+	    		fflush(stdout);
+	    	}
+	    	else if(read_size == -1)
+	    	{
+	    		perror("Server recv failed");
+	    	}
 
 	    return 0;
 	}
