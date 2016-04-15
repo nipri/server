@@ -16,12 +16,12 @@ void main (void) {
 	    int socket_desc , client_sock , c , read_size;
 	    struct sockaddr_in server , client;
 	    char client_message[2000];
-	    int server_message[64];
+	    int server_message[5];
 
 //	    strcpy(server_message, "You are most welcome!\r\n");
 //	    strcpy(server_message, "abcde");
-	    server_message[0] = 0x08;
-	    server_message[1] = 0x15;
+	    server_message[0] = 0x0a;
+	    server_message[1] = 0x10;
 
 	    //Create socket
 	    socket_desc = socket(AF_INET , SOCK_STREAM , 0);
@@ -66,7 +66,7 @@ void main (void) {
 	    	{
 	    		printf("Client Sent: %s\r\n", client_message);
 	    		//Send the message back to client
-	    		write(client_sock, server_message , strlen(server_message));
+	    		write(client_sock, server_message , 5);
 	    	}
 
 	    	if(read_size == 0)
